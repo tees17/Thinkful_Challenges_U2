@@ -6,16 +6,15 @@ loansData = pd.read_csv('LoanStats3c.csv', usecols= ['home_ownership', 'annual_i
 
 
 #Use income (annual_inc) to model interest rates (int_rate)
-house_ownership = [4 if x == 'OWN' else 3 if x == 'MORTGAGE' else 2 if x == 'RENT' else 1 if x == 'OTHER' else 0 for x in house_ownership]
+
 own = loansData['home_ownership']
+own = [2 if x == 'OWN' else 2 if x == 'MORTGAGE' else 1 if x == 'RENT' else 1 if x == 'OTHER' else 0 for x in own]
 income=loansData['annual_inc']
 rate=loansData['int_rate']
 income[np.isnan(income)]=0
 rate[np.isnan(rate)]=0
 
 
-
-print loansData.head()
 # The dependent variable
 y = np.matrix(rate).transpose()
 
@@ -23,7 +22,7 @@ y = np.matrix(rate).transpose()
 x1=np.matrix(income).transpose()
 x2=np.matrix(own).transpose()
 
-print x1
+
 x=np.column_stack([x1,x2])
 X=sm.add_constant(x)
 
